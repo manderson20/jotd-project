@@ -1,0 +1,5 @@
+[
+  { "id": 1, "text": "Why do programmers prefer dark mode? Because light attracts bugs.", "rating": "G", "category": "tech", "active": true },
+  { "id": 2, "text": "I told my computer I needed a break… it said 'No problem — I’ll go to sleep.'", "rating": "G", "category": "tech", "active": true },
+  { "id": 3, "text": "Why did the scarecrow get promoted? He was outstanding in his field.", "rating": "G", "category": "dad", "active": true }
+]

@@ -397,5 +397,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1055,
+    "text": "What do a blonde and your computer have in common? You don't know how much either of them mean to you until they go down on you.",
+    "rating": "PG-13",
+    "category": "fortune",
+    "active": true
   }
 ]

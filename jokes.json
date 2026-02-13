@@ -383,5 +383,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1053,
+    "text": "A guy returns from a long trip to Europe, having left his beloved dog in his brother's care. The minute he's cleared customs, he calls up his brother and inquires after his pet. \"Your dog's dead,\" replies his brother bluntly. The guy is devastated. \"You know how much that dog meant to me,\" he moaned into the phone. \"Couldn't you at least have thought of a nicer way of breaking the news? Couldn't you have said, `Well, you know, the dog got outside one day, and was crossing the street, and a car was speeding around a corner...' or something...? Why are you always so thoughtless?\" \"Look, I'm sorry,\" said his brother, \"I guess I just didn't think.\" \"Okay, okay, let's just put it behind us. How are you anyway? How's Mom?\" His brother is silent a moment. \"Uh,\" he stammers, \"uh... Mom got outside one day...\"",
+    "rating": "PG",
+    "category": "fortune",
+    "active": true
   }
 ]

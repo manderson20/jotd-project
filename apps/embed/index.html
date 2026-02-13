@@ -124,22 +124,26 @@
   </div>
 
 <script>
-  // ---- Config via query params ----
+  // -----------------------------
+  // Config via query params
+  // -----------------------------
   // api = override API base (optional)
   // maxChars = truncate length (optional)
   // ratings = allowed ratings, e.g. G,PG
   // categories = optional filter
   // title = override card title
+  // embedId = unique id used for auto-resize when multiple widgets exist
+  // parentOrigin = optional security: expected parent origin for postMessage target
   const qp = new URLSearchParams(location.search);
 
-  const API_BASE =
-    qp.get("api") ||
-    "https://joke-api.mthwanderson20.workers.dev";
-
-  const maxChars = qp.get("maxChars"); // let API handle truncation if supported
+  const API_BASE = qp.get("api") || "https://joke-api.mthwanderson20.workers.dev";
+  const maxChars = qp.get("maxChars"); // API handles truncation
   const ratings = qp.get("ratings") || "G,PG";
   const categories = qp.get("categories"); // optional
   const title = qp.get("title") || "Joke of the Day";
+
+  const embedId = qp.get("embedId") || "jotd";
+  const parentOrigin = qp.get("parentOrigin") || "*"; // keep "*" for universal embeds
 
   document.getElementById("title").textContent = title;
 
@@ -151,6 +155,38 @@
 
   let fullText = "";
 
+  // -----------------------------
+  // Auto-resize (postMessage)
+  // -----------------------------
+  function measureHeight() {
+    return Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight,
+      document.documentElement.clientHeight
+    );
+  }
+
+  function postResize(reason) {
+    try {
+      parent.postMessage(
+        { type: "jotd:resize", embedId, height: measureHeight(), reason: reason || "update" },
+        parentOrigin
+      );
+    } catch {}
+  }
+
+  // Post on load
+  window.addEventListener("load", () => postResize("load"));
+
+  // Post on any layout/content change
+  const ro = new ResizeObserver(() => postResize("resize_observer"));
+  ro.observe(document.documentElement);
+
+  // -----------------------------
+  // UI helpers
+  // -----------------------------
   function showError(msg) {
     errEl.style.display = "";
     errEl.textContent = msg;
@@ -158,10 +194,11 @@
     textEl.textContent = "";
     footEl.textContent = "";
     moreBtn.style.display = "none";
+    postResize("error");
   }
 
   function buildUrl() {
-    const u = new URL(API_BASE + "/v1/joke/today");
+    const u = new URL(API_BASE.replace(/\/+$/, "") + "/v1/joke/today");
     u.searchParams.set("ratings", ratings);
     if (categories) u.searchParams.set("categories", categories);
     if (maxChars) u.searchParams.set("maxChars", maxChars);
@@ -173,15 +210,12 @@
       const res = await fetch(buildUrl(), { cache: "no-store" });
       const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(JSON.stringify(data, null, 2));
-      }
-      if (!data || !data.joke) {
-        throw new Error("No joke returned. Check filters (ratings/categories) and active flags.");
-      }
+      if (!res.ok) throw new Error(JSON.stringify(data, null, 2));
+      if (!data || !data.joke) throw new Error("No joke returned. Check filters (ratings/categories) and active flags.");
 
-      // Prefer API-provided displayText (if you implemented it)
       const joke = data.joke;
+
+      // Prefer API-provided displayText (truncate handled server-side)
       const display = (joke.displayText || joke.text || "").trim();
       fullText = (joke.text || "").trim();
 
@@ -194,23 +228,13 @@
       metaEl.textContent = bits.join(" • ") || "—";
 
       // Footer: date if present
-      if (data.date) {
-        footEl.textContent = data.date;
-      } else {
-        footEl.textContent = "";
-      }
+      footEl.textContent = data.date ? data.date : "";
 
       const isTruncated = !!joke.isTruncated || (maxChars && fullText && display !== fullText);
-      if (isTruncated) {
-        moreBtn.style.display = "";
-      } else {
-        moreBtn.style.display = "none";
-      }
+      moreBtn.style.display = isTruncated ? "" : "none";
 
-      // Resize ping (optional; helps if you later add auto-resize)
-      try {
-        parent.postMessage({ type: "jotd:loaded", height: document.documentElement.scrollHeight }, "*");
-      } catch {}
+      // Post resize after render
+      postResize("loaded");
     } catch (e) {
       showError(String(e?.message || e));
     }
@@ -219,9 +243,7 @@
   moreBtn.addEventListener("click", () => {
     textEl.textContent = fullText || textEl.textContent;
     moreBtn.style.display = "none";
-    try {
-      parent.postMessage({ type: "jotd:expanded", height: document.documentElement.scrollHeight }, "*");
-    } catch {}
+    postResize("expanded");
   });
 
   load();

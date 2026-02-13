@@ -579,5 +579,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1081,
+    "text": "If there is a possibility of several things going wrong, the one that will cause the most damage will be the one to go wrong. If you perceive that there are four possible ways in which a procedure can go wrong, and circumvent these, then a fifth way will promptly develop.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

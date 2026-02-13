@@ -845,5 +845,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1119,
+    "text": "Lobster: Everyone loves these delectable crustaceans, but many cooks are squeamish about placing them into boiling water alive, which is the only proper method of preparing them. Frankly, the easiest way to eliminate your guilt is to establish theirs by putting them on trial before they're cooked. The fact is, lobsters are among the most ferocious predators on the sea floor, and you're helping reduce crime in the reefs. Grasp the lobster behind the head, look it right in its unmistakably guilty eyestalks and say, \"Where were you on the night of the 21st?\", then flourish a picture of a scallop or a sole and shout, \"Perhaps this will refresh that crude neural apparatus you call a memory!\" The lobster will squirm noticeably. It may even take a swipe at you with one of its claws. Incorrigible. Pop it into the pot. Justice has been served, and shortly you and your friends will be, too. -- Cooking: The Art of Turning Appliances and Utensils into Excuses and Apologies",
+    "rating": "PG",
+    "category": "fortune",
+    "active": true
   }
 ]

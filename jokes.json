@@ -740,5 +740,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1104,
+    "text": "Be careful of reading health books, you might die of a misprint. -- Mark Twain",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

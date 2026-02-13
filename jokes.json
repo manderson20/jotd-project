@@ -733,5 +733,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1103,
+    "text": "Eighty percent of air pollution comes from plants and trees. -- Ronald Reagan, famous movie star",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

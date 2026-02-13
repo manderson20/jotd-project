@@ -866,5 +866,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1122,
+    "text": "Show me a man who is a good loser and I'll show you a man who is playing golf with his boss.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

@@ -593,5 +593,12 @@
     "rating": "PG-13",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1083,
+    "text": "I don't want to alarm anybody, but there is an excellent chance that the Earth will be destroyed in the next several days. Congress is thinking about eliminating a federal program under which scientists broadcast signals to alien beings. This would be a large mistake. Alien beings have nuclear blaster death cannons. You cannot cut off their federal programs as if they were merely poor people ... -- Davy Barry, \"THE ALIENS ARE COMING, THE ALIENS ARE COMING!\"",
+    "rating": "PG",
+    "category": "fortune",
+    "active": true
   }
 ]

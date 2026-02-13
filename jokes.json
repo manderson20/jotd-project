@@ -467,5 +467,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1065,
+    "text": "It is impossible to travel faster than light, and certainly not desirable, as one's hat keeps blowing off. -- Woody Allen",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

@@ -649,5 +649,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1091,
+    "text": "When I was a young man, I vowed never to marry until I found the ideal woman. Well, I found her -- but alas, she was waiting for the ideal man. -- Robert Schuman",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

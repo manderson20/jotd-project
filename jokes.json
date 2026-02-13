@@ -642,5 +642,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1090,
+    "text": "Here about the young Chinese woman who just won the lottery? One fortunate cookie...",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

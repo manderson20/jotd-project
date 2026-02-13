@@ -537,5 +537,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1075,
+    "text": "Silverman's Law: If Murphy's Law can go wrong, it will.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

@@ -236,5 +236,12 @@
     "rating": "G",
     "category": "sports",
     "active": true
+  },
+  {
+    "id": 1032,
+    "text": "What do you get when you mix alcohol with literature? Tequila Mockingbird!",
+    "rating": "G",
+    "category": "literature",
+    "active": true
   }
 ]

@@ -782,5 +782,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1110,
+    "text": "When you do not know what you are doing, do it neatly.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

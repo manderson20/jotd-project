@@ -481,5 +481,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1067,
+    "text": "Mathematicians take it to the limit.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

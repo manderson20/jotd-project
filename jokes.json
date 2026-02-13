@@ -607,5 +607,12 @@
     "rating": "PG-13",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1085,
+    "text": "One cannot make an omelette without breaking eggs -- but it is amazing how many eggs one can break without making a decent omelette.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

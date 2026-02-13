@@ -488,5 +488,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1068,
+    "text": "Meeting: An assembly of computer experts coming together to decide what person or department not represented in the room must solve the problem.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

@@ -240,7 +240,7 @@
   {
     "id": 1032,
     "text": "What do you get when you mix alcohol with literature? Tequila Mockingbird!",
-    "rating": "G",
+    "rating": "PG",
     "category": "literature",
     "active": true
   },
@@ -380,7 +380,7 @@
   {
     "id": 1052,
     "text": "My doctor told me to stop having intimate dinners for four. Unless there are three other people. -- Orson Welles",
-    "rating": "G",
+    "rating": "PG",
     "category": "fortune",
     "active": true
   },
@@ -401,14 +401,14 @@
   {
     "id": 1055,
     "text": "What do a blonde and your computer have in common? You don't know how much either of them mean to you until they go down on you.",
-    "rating": "PG-13",
+    "rating": "R",
     "category": "fortune",
     "active": true
   },
   {
     "id": 1056,
     "text": "What's the advantage to being married to a blonde? You can park in the handicapped zone.",
-    "rating": "PG-13",
+    "rating": "R",
     "category": "fortune",
     "active": true
   },
@@ -450,9 +450,9 @@
   {
     "id": 1062,
     "text": "As a general rule of thumb, never trust anybody who's been in therapy for more than 15 percent of their life span. The words \"I am sorry\" and \"I am wrong\" will have totally disappeared from their vocabulary. They will stab you, shoot you, break things in your apartment, say horrible things to your friends and family, and then justify this abhorrent behavior by saying: \"Sure, I put your dog in the microwave. But I feel *better* for doing it.\" -- Bruce Feirstein, \"Nice Guys Sleep Alone\"",
-    "rating": "G",
+    "rating": "PG-13",
     "category": "fortune",
-    "active": true
+    "active": false
   },
   {
     "id": 1063,
@@ -604,7 +604,7 @@
   {
     "id": 1084,
     "text": "Giving money and power to governments is like giving whiskey and car keys to teenage boys. -- P.J. O'Rourke",
-    "rating": "PG-13",
+    "rating": "PG",
     "category": "fortune",
     "active": true
   },
@@ -646,7 +646,7 @@
   {
     "id": 1090,
     "text": "Here about the young Chinese woman who just won the lottery? One fortunate cookie...",
-    "rating": "G",
+    "rating": "PG",
     "category": "fortune",
     "active": true
   },
@@ -711,7 +711,7 @@
     "text": "A man goes into a bar and begins to tell a Polish joke. The man sitting next to him, a big hulking powerhouse, turns and says menacingly, \"*I'm* Polish.\" He then calls out, \"Ivan! Come over here and bring your brother.\" Two men, bigger than the first, appear from the back room. \"Josef!\" the man calls out, \"come here a second, and bring Lendl with you.\" Two more men appear, and all five men crowd around the man with the joke. \"Now,\" says the first Polish man, \"do you want to finish that joke?\" \"Nah,\" says the man. \"Oh, no? And why not? I'm sure it was very funny,\" says the Polish man, opening and closing his fist. \"Are you scared?\" \"No,\" replies the man. \"I just don't feel like having to explain it five times.\"",
     "rating": "PG-13",
     "category": "fortune",
-    "active": true
+    "active": false
   },
   {
     "id": 1100,

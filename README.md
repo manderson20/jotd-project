@@ -217,9 +217,8 @@ Dark mode is automatic.
 
 This widget can be embedded into:
 
-- School district websites
+- Websites
 - IT dashboards
-- Edgine platform modules
 - WordPress sites
 - Google Sites
 - Internal portals

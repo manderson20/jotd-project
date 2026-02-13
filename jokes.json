@@ -341,5 +341,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1047,
+    "text": "What do you call a snowman with a six-pack? An abdominal snowman!",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

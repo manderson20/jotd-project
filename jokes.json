@@ -656,5 +656,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1092,
+    "text": "I stopped believing in Santa Claus when my mother took me to see him in a department store, and he asked for my autograph. -- Shirley Temple",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

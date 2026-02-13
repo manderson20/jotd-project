@@ -313,5 +313,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1043,
+    "text": "Why don't eggs tell jokes? They might crack up!",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

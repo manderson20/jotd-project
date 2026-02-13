@@ -803,5 +803,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1113,
+    "text": "Oh, I don't blame Congress. If I had $600 billion at my disposal, I'd be irresponsible, too. -- Lichty & Wagner",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

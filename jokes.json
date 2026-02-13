@@ -257,5 +257,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1035,
+    "text": "Why don't cows have money? Because the farmers milk them dry!",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

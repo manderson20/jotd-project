@@ -474,5 +474,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1066,
+    "text": "Show business is just like high school, except you get paid. -- Martin Mull",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

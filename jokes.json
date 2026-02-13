@@ -600,5 +600,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1084,
+    "text": "Giving money and power to governments is like giving whiskey and car keys to teenage boys. -- P.J. O'Rourke",
+    "rating": "PG-13",
+    "category": "fortune",
+    "active": true
   }
 ]

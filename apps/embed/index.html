@@ -3,250 +3,208 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>JOTD Widget</title>
+  <title>JOTD Admin</title>
   <style>
     :root {
-      --bg: #ffffff;
-      --fg: #111111;
-      --muted: #666666;
-      --border: rgba(0,0,0,0.12);
-      --shadow: rgba(0,0,0,0.06);
-      --link: #0b63ce;
-      --font: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --bg:#0f1115; --fg:#f3f4f6; --muted:#a7a7a7; --border:rgba(255,255,255,0.16);
+      --card:#141824; --link:#7ab7ff; --danger:#ff5a5f; --ok:#36d399;
+      --font: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       --radius: 14px;
     }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f1115;
-        --fg: #f3f4f6;
-        --muted: #a7a7a7;
-        --border: rgba(255,255,255,0.16);
-        --shadow: rgba(0,0,0,0.35);
-        --link: #7ab7ff;
-      }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--font)}
+    .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
+    .top{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .title{font-size:18px;font-weight:800;letter-spacing:.02em}
+    .sub{color:var(--muted);font-size:13px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+    input,select,textarea{
+      background:#0b0e16;color:var(--fg);border:1px solid var(--border);border-radius:10px;
+      padding:10px 12px;font-size:14px;outline:none
     }
-
-    html, body { margin:0; padding:0; background: transparent; }
-    body { font-family: var(--font); color: var(--fg); }
-
-    .card {
-      box-sizing: border-box;
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 6px 18px var(--shadow);
-      padding: 14px 14px 12px 14px;
+    input{min-width:280px;flex:1}
+    textarea{width:100%;min-height:420px;line-height:1.35;white-space:pre;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+    .btn{
+      appearance:none;border:1px solid var(--border);background:transparent;color:var(--link);
+      padding:10px 14px;border-radius:999px;font-size:14px;cursor:pointer
     }
-
-    .top {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .title {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .meta {
-      font-size: 12px;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 60%;
-      text-align: right;
-    }
-
-    .text {
-      font-size: 18px;
-      line-height: 1.35;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .actions {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .btn {
-      appearance:none;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--link);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .btn:hover { filter: brightness(0.95); }
-
-    .small {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .error {
-      color: #b00020;
-      font-size: 14px;
-      white-space: pre-wrap;
-    }
+    .btn:hover{filter:brightness(1.1)}
+    .btn.primary{background:rgba(122,183,255,0.12);border-color:rgba(122,183,255,0.35)}
+    .btn.danger{color:var(--danger);border-color:rgba(255,90,95,0.35);background:rgba(255,90,95,0.08)}
+    .pill{font-size:12px;color:var(--muted)}
+    .status{margin-top:10px;font-size:13px}
+    .ok{color:var(--ok)}
+    .bad{color:var(--danger)}
+    code{color:#c7d2fe}
+    .help{margin-top:10px;color:var(--muted);font-size:13px;line-height:1.35}
+    a{color:var(--link)}
   </style>
 </head>
 <body>
-  <div class="card" id="card">
+  <div class="wrap">
     <div class="top">
-      <div class="title" id="title">Joke of the Day</div>
-      <div class="meta" id="meta">Loading…</div>
+      <div>
+        <div class="title">JOTD Admin</div>
+        <div class="sub">Edit jokes.json via the Worker admin API (requires your <code>X-API-Key</code>).</div>
+      </div>
+      <div class="pill" id="who">Not loaded</div>
     </div>
 
-    <div class="text" id="text">Loading…</div>
-
-    <div class="actions">
-      <div class="small" id="foot"></div>
-      <button class="btn" id="moreBtn" style="display:none;">More</button>
+    <div class="card" style="margin-bottom:12px">
+      <div class="row">
+        <div style="flex:2;min-width:320px">
+          <label>Worker API Base</label>
+          <input id="apiBase" value="https://joke-api.mthwanderson20.workers.dev" />
+        </div>
+        <div style="flex:2;min-width:320px">
+          <label>Admin API Key (sent as <code>X-API-Key</code>)</label>
+          <input id="apiKey" type="password" placeholder="Paste your admin key here" />
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn primary" id="btnLoad">Load jokes</button>
+        <button class="btn primary" id="btnSave" disabled>Save jokes</button>
+        <button class="btn" id="btnFormat" disabled>Format JSON</button>
+        <button class="btn danger" id="btnClear">Clear key</button>
+      </div>
+      <div class="status" id="status"></div>
+      <div class="help">
+        Notes:
+        <ul>
+          <li>This page is static (Cloudflare Pages). Your key is never stored on the server.</li>
+          <li>The Worker uses a GitHub token (server-side) to read/write <code>apps/api/jokes.json</code>.</li>
+          <li>If you want to lock this page down later, we can add Cloudflare Access.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="error" id="err" style="display:none;"></div>
+    <div class="card">
+      <label>jokes.json (edit the array items, then Save)</label>
+      <textarea id="editor" spellcheck="false" placeholder="Click “Load jokes” first…"></textarea>
+    </div>
   </div>
 
 <script>
-  // -----------------------------
-  // Config via query params
-  // -----------------------------
-  // api = override API base (optional)
-  // maxChars = truncate length (optional)
-  // ratings = allowed ratings, e.g. G,PG
-  // categories = optional filter
-  // title = override card title
-  // embedId = unique id used for auto-resize when multiple widgets exist
-  // parentOrigin = optional security: expected parent origin for postMessage target
-  const qp = new URLSearchParams(location.search);
+  const $ = (id) => document.getElementById(id);
 
-  const API_BASE = qp.get("api") || "https://joke-api.mthwanderson20.workers.dev";
-  const maxChars = qp.get("maxChars"); // API handles truncation
-  const ratings = qp.get("ratings") || "G,PG";
-  const categories = qp.get("categories"); // optional
-  const title = qp.get("title") || "Joke of the Day";
+  const apiBaseEl = $("apiBase");
+  const apiKeyEl  = $("apiKey");
+  const editorEl  = $("editor");
+  const statusEl  = $("status");
+  const whoEl     = $("who");
 
-  const embedId = qp.get("embedId") || "jotd";
-  const parentOrigin = qp.get("parentOrigin") || "*"; // keep "*" for universal embeds
+  const btnLoad   = $("btnLoad");
+  const btnSave   = $("btnSave");
+  const btnFormat = $("btnFormat");
+  const btnClear  = $("btnClear");
 
-  document.getElementById("title").textContent = title;
+  let lastSha = null;
 
-  const metaEl = document.getElementById("meta");
-  const textEl = document.getElementById("text");
-  const footEl = document.getElementById("foot");
-  const errEl = document.getElementById("err");
-  const moreBtn = document.getElementById("moreBtn");
-
-  let fullText = "";
-
-  // -----------------------------
-  // Auto-resize (postMessage)
-  // -----------------------------
-  function measureHeight() {
-    return Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.offsetHeight,
-      document.documentElement.clientHeight
-    );
+  function setStatus(msg, kind) {
+    statusEl.className = "status " + (kind || "");
+    statusEl.textContent = msg || "";
   }
 
-  function postResize(reason) {
+  function apiBase() {
+    return apiBaseEl.value.replace(/\/+$/, "");
+  }
+
+  function headers() {
+    const key = apiKeyEl.value.trim();
+    return {
+      "X-API-Key": key,
+      "Content-Type": "application/json"
+    };
+  }
+
+  async function loadDebug() {
+    const res = await fetch(apiBase() + "/v1/admin/debug", { headers: headers() });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error || JSON.stringify(data, null, 2) || "debug failed");
+    whoEl.textContent = `Repo: ${data.GITHUB_OWNER}/${data.GITHUB_REPO} (${data.GITHUB_BRANCH})`;
+  }
+
+  async function loadJokes() {
+    setStatus("Loading…");
+    await loadDebug();
+
+    const res = await fetch(apiBase() + "/v1/admin/jokes", { headers: headers() });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error || JSON.stringify(data, null, 2) || "load failed");
+
+    // Expecting: { sha, jokes }
+    if (!data || !Array.isArray(data.jokes)) {
+      throw new Error("Unexpected response. Expected { sha, jokes: [...] }");
+    }
+
+    lastSha = data.sha || null;
+    editorEl.value = JSON.stringify({ sha: lastSha, jokes: data.jokes }, null, 2);
+
+    btnSave.disabled = false;
+    btnFormat.disabled = false;
+
+    setStatus("Loaded OK ✅", "ok");
+  }
+
+  function formatJson() {
     try {
-      parent.postMessage(
-        { type: "jotd:resize", embedId, height: measureHeight(), reason: reason || "update" },
-        parentOrigin
-      );
-    } catch {}
-  }
-
-  // Post on load
-  window.addEventListener("load", () => postResize("load"));
-
-  // Post on any layout/content change
-  const ro = new ResizeObserver(() => postResize("resize_observer"));
-  ro.observe(document.documentElement);
-
-  // -----------------------------
-  // UI helpers
-  // -----------------------------
-  function showError(msg) {
-    errEl.style.display = "";
-    errEl.textContent = msg;
-    metaEl.textContent = "Error";
-    textEl.textContent = "";
-    footEl.textContent = "";
-    moreBtn.style.display = "none";
-    postResize("error");
-  }
-
-  function buildUrl() {
-    const u = new URL(API_BASE.replace(/\/+$/, "") + "/v1/joke/today");
-    u.searchParams.set("ratings", ratings);
-    if (categories) u.searchParams.set("categories", categories);
-    if (maxChars) u.searchParams.set("maxChars", maxChars);
-    return u.toString();
-  }
-
-  async function load() {
-    try {
-      const res = await fetch(buildUrl(), { cache: "no-store" });
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(JSON.stringify(data, null, 2));
-      if (!data || !data.joke) throw new Error("No joke returned. Check filters (ratings/categories) and active flags.");
-
-      const joke = data.joke;
-
-      // Prefer API-provided displayText (truncate handled server-side)
-      const display = (joke.displayText || joke.text || "").trim();
-      fullText = (joke.text || "").trim();
-
-      textEl.textContent = display;
-
-      // Meta line
-      const bits = [];
-      if (joke.category) bits.push(joke.category);
-      if (joke.rating) bits.push(joke.rating);
-      metaEl.textContent = bits.join(" • ") || "—";
-
-      // Footer: date if present
-      footEl.textContent = data.date ? data.date : "";
-
-      const isTruncated = !!joke.isTruncated || (maxChars && fullText && display !== fullText);
-      moreBtn.style.display = isTruncated ? "" : "none";
-
-      // Post resize after render
-      postResize("loaded");
+      const obj = JSON.parse(editorEl.value);
+      editorEl.value = JSON.stringify(obj, null, 2);
+      setStatus("Formatted ✅", "ok");
     } catch (e) {
-      showError(String(e?.message || e));
+      setStatus("Format failed: " + (e?.message || e), "bad");
     }
   }
 
-  moreBtn.addEventListener("click", () => {
-    textEl.textContent = fullText || textEl.textContent;
-    moreBtn.style.display = "none";
-    postResize("expanded");
+  async function saveJokes() {
+    setStatus("Saving…");
+
+    let payload;
+    try {
+      payload = JSON.parse(editorEl.value);
+    } catch (e) {
+      throw new Error("JSON is invalid: " + (e?.message || e));
+    }
+
+    // Ensure sha is present (protects against overwriting updates)
+    if (!payload.sha) payload.sha = lastSha;
+
+    const res = await fetch(apiBase() + "/v1/admin/jokes", {
+      method: "PUT",
+      headers: headers(),
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error || JSON.stringify(data, null, 2) || "save failed");
+
+    // Update sha after save
+    if (data.sha) {
+      lastSha = data.sha;
+      payload.sha = data.sha;
+      editorEl.value = JSON.stringify(payload, null, 2);
+    }
+
+    setStatus("Saved OK ✅", "ok");
+  }
+
+  btnLoad.addEventListener("click", async () => {
+    try { await loadJokes(); }
+    catch (e) { setStatus(String(e?.message || e), "bad"); }
   });
 
-  load();
+  btnFormat.addEventListener("click", formatJson);
+
+  btnSave.addEventListener("click", async () => {
+    try { await saveJokes(); }
+    catch (e) { setStatus(String(e?.message || e), "bad"); }
+  });
+
+  btnClear.addEventListener("click", () => {
+    apiKeyEl.value = "";
+    setStatus("Cleared key.", "");
+  });
 </script>
 </body>
 </html>

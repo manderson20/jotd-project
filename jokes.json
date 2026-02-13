@@ -411,5 +411,12 @@
     "rating": "PG-13",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1057,
+    "text": "Why did the blonde get so excited after she finished her jigsaw puzzle in only 6 months? Because on the box it said \"From 2-4 years\".",
+    "rating": "PG-13",
+    "category": "fortune",
+    "active": true
   }
 ]

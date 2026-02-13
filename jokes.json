@@ -306,5 +306,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1042,
+    "text": "I told my wife she should embrace her mistakes. She gave me a hug.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

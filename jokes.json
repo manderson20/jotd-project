@@ -810,5 +810,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1114,
+    "text": "The full impact of parenthood doesn't hit you until you multiply the number of your kids by thirty-two teeth.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

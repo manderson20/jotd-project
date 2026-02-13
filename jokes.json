@@ -453,5 +453,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1063,
+    "text": "f u cn rd ths, u cn gt a gd jb n cmptr prgrmmng.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

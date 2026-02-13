@@ -635,5 +635,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1089,
+    "text": "Computers are unreliable, but humans are even more unreliable. Any system which depends on human reliability is unreliable. -- Gilb",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

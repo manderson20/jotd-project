@@ -705,5 +705,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1099,
+    "text": "A man goes into a bar and begins to tell a Polish joke. The man sitting next to him, a big hulking powerhouse, turns and says menacingly, \"*I'm* Polish.\" He then calls out, \"Ivan! Come over here and bring your brother.\" Two men, bigger than the first, appear from the back room. \"Josef!\" the man calls out, \"come here a second, and bring Lendl with you.\" Two more men appear, and all five men crowd around the man with the joke. \"Now,\" says the first Polish man, \"do you want to finish that joke?\" \"Nah,\" says the man. \"Oh, no? And why not? I'm sure it was very funny,\" says the Polish man, opening and closing his fist. \"Are you scared?\" \"No,\" replies the man. \"I just don't feel like having to explain it five times.\"",
+    "rating": "PG-13",
+    "category": "fortune",
+    "active": true
   }
 ]

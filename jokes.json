@@ -299,5 +299,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1041,
+    "text": "Did you hear about the guy who invented Lifesavers? They say he made a mint!",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

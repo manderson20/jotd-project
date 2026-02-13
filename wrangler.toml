@@ -1,3 +1,8 @@
 name = "joke-api"
 main = "src/index.js"
 compatibility_date = "2026-02-12"
+[vars]
+GITHUB_OWNER = "manderson20"
+GITHUB_REPO  = "jotd-project"
+GITHUB_BRANCH = "main"
+JOKES_PATH = "jokes.json"

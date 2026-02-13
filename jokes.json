@@ -502,5 +502,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1070,
+    "text": "A cow is a completely automated milk-manufacturing machine. It is encased in untanned leather and mounted on four vertical, movable supports, one at each corner. The front end of the machine, or input, contains the cutting and grinding mechanism, utilizing a unique feedback device. Here also are the headlights, air inlet and exhaust, a bumper and a foghorn. At the rear, the machine carries the milk-dispensing equipment as well as a built-in flyswatter and insect repeller. The central portion houses a hydro- chemical-conversion unit. Briefly, this consists of four fermentation and storage tanks connected in series by an intricate network of flexible plumbing. This assembly also contains the central heating plant complete with automatic temperature controls, pumping station and main ventilating system. The waste disposal apparatus is located to the rear of this central section. Cows are available fully-assembled in an assortment of sizes and colors. Production output ranges from 2 to 20 tons of milk per year. In brief, the main external visible features of the cow are: two lookers, two hookers, four stander-uppers, four hanger-downers, and a swishy-wishy.",
+    "rating": "PG",
+    "category": "fortune",
+    "active": true
   }
 ]

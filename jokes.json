@@ -439,5 +439,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1061,
+    "text": "COPYING MACHINE: A device that shreds paper, flashes mysteriously coded messages, and makes duplicates for everyone in the office who isn't interested in reading them.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

@@ -880,5 +880,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1124,
+    "text": "What's the best present you can give? A broken drum. Nobody can beat that.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

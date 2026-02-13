@@ -404,5 +404,12 @@
     "rating": "PG-13",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1056,
+    "text": "What's the advantage to being married to a blonde? You can park in the handicapped zone.",
+    "rating": "PG-13",
+    "category": "fortune",
+    "active": true
   }
 ]

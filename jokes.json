@@ -565,5 +565,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1079,
+    "text": "Diplomacy is the art of saying \"nice doggie\" until you can find a rock. -- Wynn Catlin",
+    "rating": "PG",
+    "category": "fortune",
+    "active": true
   }
 ]

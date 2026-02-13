@@ -614,5 +614,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1086,
+    "text": "The early bird who catches the worm works for someone who comes in late and owns the worm farm. -- Travis McGee",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

@@ -376,5 +376,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1052,
+    "text": "My doctor told me to stop having intimate dinners for four. Unless there are three other people. -- Orson Welles",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

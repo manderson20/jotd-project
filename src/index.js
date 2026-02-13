@@ -505,11 +505,12 @@ function normalizeText(s) {
     .trim();
 }
 
-function trigrams(s) {
-  const t = new Set();
-  const padded = `  ${s}  `;
-  for (let i = 0; i < padded.length - 2; i++) t.add(padded.slice(i, i + 3));
-  return t;
+function normalizeText(s) {
+  return String(s)
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function jaccardTrigrams(a, b) {

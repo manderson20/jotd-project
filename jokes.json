@@ -572,5 +572,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1080,
+    "text": "It's no surprise that things are so screwed up: everyone that knows how to run a government is either driving taxicabs or cutting hair. -- George Burns",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

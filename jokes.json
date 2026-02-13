@@ -747,5 +747,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1105,
+    "text": "We don't understand the software, and sometimes we don't understand the hardware, but we can *see* the blinking lights!",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

@@ -509,5 +509,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1071,
+    "text": "Uncle Ed's Rule of Thumb: Never use your thumb for a rule. You'll either hit it with a hammer or get a splinter in it.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

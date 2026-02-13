@@ -831,5 +831,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1117,
+    "text": "How long a minute is depends on which side of the bathroom door you're on.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

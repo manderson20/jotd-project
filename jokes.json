@@ -796,5 +796,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1112,
+    "text": "Remember, Grasshopper, falling down 1000 stairs begins by tripping over the first one. -- Confusion",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

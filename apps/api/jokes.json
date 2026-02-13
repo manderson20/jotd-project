@@ -901,5 +901,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1127,
+    "text": "What did the football coach say to the vending machine? I want my quarter back.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

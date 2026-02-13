@@ -327,5 +327,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1045,
+    "text": "What did the grape say when it got stepped on? Nothing, it just let out a little wine.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

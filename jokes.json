@@ -331,7 +331,7 @@
   {
     "id": 1045,
     "text": "What did the grape say when it got stepped on? Nothing, it just let out a little wine.",
-    "rating": "G",
+    "rating": "PG",
     "category": "dad",
     "active": true
   },
@@ -403,21 +403,21 @@
     "text": "What do a blonde and your computer have in common? You don't know how much either of them mean to you until they go down on you.",
     "rating": "R",
     "category": "fortune",
-    "active": true
+    "active": false
   },
   {
     "id": 1056,
     "text": "What's the advantage to being married to a blonde? You can park in the handicapped zone.",
     "rating": "R",
     "category": "fortune",
-    "active": true
+    "active": false
   },
   {
     "id": 1057,
     "text": "Why did the blonde get so excited after she finished her jigsaw puzzle in only 6 months? Because on the box it said \"From 2-4 years\".",
     "rating": "PG-13",
     "category": "fortune",
-    "active": true
+    "active": false
   },
   {
     "id": 1058,

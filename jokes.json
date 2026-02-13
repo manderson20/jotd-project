@@ -1,7 +1,7 @@
 [
   { "id": 1, "text": "Why do programmers prefer dark mode? Because light attracts bugs.", "rating": "G", "category": "tech", "active": true },
   { "id": 2, "text": "I told my computer I needed a break… it said 'No problem — I’ll go to sleep.'", "rating": "G", "category": "tech", "active": true },
-  { "id": 3, "text": "Why did the scarecrow get promoted? He was outstanding in his field.", "rating": "G", "category": "dad", "active": true }
+  { "id": 3, "text": "Why did the scarecrow get promoted? He was outstanding in his field.", "rating": "G", "category": "dad", "active": true },
   { "id": 1001, "text": "I tried to teach my router a bedtime routine. Now it only disconnects after a story.", "rating": "G", "category": "tech", "active": true },
   { "id": 1002, "text": "Why did the keyboard break up with the mouse? It felt like it was being clicked with.", "rating": "G", "category": "tech", "active": true },
   { "id": 1003, "text": "I told my computer I’d clean up my files. It opened the recycle bin like, 'be my guest.'", "rating": "G", "category": "tech", "active": true },
@@ -12,7 +12,6 @@
   { "id": 1008, "text": "I tried to make a belt out of USB cables. Total waist of bandwidth.", "rating": "G", "category": "pun", "active": true },
   { "id": 1009, "text": "My password is so strong it refuses to lift anything.", "rating": "G", "category": "dad", "active": true },
   { "id": 1010, "text": "Why did the spreadsheet look confident? It had all its cells together.", "rating": "G", "category": "office", "active": true },
-
   { "id": 1011, "text": "I set my alarm to 'update mode.' Now it wakes me up, restarts, and forgets why.", "rating": "G", "category": "tech", "active": true },
   { "id": 1012, "text": "Why did the printer get invited to every party? It really knows how to make an impression.", "rating": "G", "category": "office", "active": true },
   { "id": 1013, "text": "I bought a book on debugging. It was full of plot fixes.", "rating": "G", "category": "tech", "active": true },
@@ -23,7 +22,6 @@
   { "id": 1018, "text": "Why did the cloud bring an umbrella? Too many requests for showers.", "rating": "G", "category": "tech", "active": true },
   { "id": 1019, "text": "I tried to make a joke about RAM… but I couldn’t remember it.", "rating": "G", "category": "tech", "active": true },
   { "id": 1020, "text": "Why did the calendar feel stressed? It had too many dates.", "rating": "G", "category": "dad", "active": true },
-
   { "id": 1021, "text": "My computer loves winter. It runs better when the fans are in season.", "rating": "G", "category": "tech", "active": true },
   { "id": 1022, "text": "Why did the USB stick apply for a job? It wanted to be more than just storage.", "rating": "G", "category": "tech", "active": true },
   { "id": 1023, "text": "I told my laptop to stop multitasking. It opened 12 tabs to prove it could.", "rating": "G", "category": "tech", "active": true },

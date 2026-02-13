@@ -432,5 +432,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1060,
+    "text": "Nobody can be exactly like me. Even I have trouble doing it. -- Tallulah Bankhead",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

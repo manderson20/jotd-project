@@ -243,5 +243,12 @@
     "rating": "G",
     "category": "literature",
     "active": true
+  },
+  {
+    "id": 1033,
+    "text": "All the toilets in the NYPD headquarters have been stolen... The police apparently have nothing to go on!",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

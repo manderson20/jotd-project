@@ -698,5 +698,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1098,
+    "text": "Reichel's Law: A body on vacation tends to remain on vacation unless acted upon by an outside force.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

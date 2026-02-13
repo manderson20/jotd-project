@@ -789,5 +789,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1111,
+    "text": "If all the world's economists were laid end to end, we wouldn't reach a conclusion. -- William Baumol",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

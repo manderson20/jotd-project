@@ -544,5 +544,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1076,
+    "text": "Satellite Safety Tip #14: If you see a bright streak in the sky coming at you, duck.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

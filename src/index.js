@@ -25,9 +25,12 @@
  */
 
 const JOKES_URL = "https://raw.githubusercontent.com/manderson20/jotd-project/main/jokes.json";
+
 const DEFAULT_RATING = "G";
 const DEFAULT_TIMEZONE = "America/Chicago";
 const SALT = "edgine-joke-salt-1";
+
+// Similarity threshold for "this looks like a repeat"
 const SIMILARITY_THRESHOLD = 0.82;
 
 export default {
@@ -46,7 +49,7 @@ export default {
         });
       }
 
-      // Public admin UI page (no header needed to load the page)
+      // Public admin UI page (no header needed to load)
       if (url.pathname === "/admin") {
         return new Response(renderAdminHtml(), {
           headers: { "content-type": "text/html; charset=utf-8" }
@@ -96,12 +99,15 @@ async function handleJokes(request, env, ctx) {
   const filtered = jokes
     .filter(j => j && j.active !== false)
     .filter(j => passesRating(j.rating || "G", rating))
-    .filter(j => (category ? String(j.category || "").toLowerCase() === category.toLowerCase() : true));
+    .filter(j =>
+      category ? String(j.category || "").toLowerCase() === category.toLowerCase() : true
+    );
 
   if (!filtered.length) {
     return json({ error: "No jokes available for the given filters." }, 404);
   }
 
+  // /v1/joke?id=123
   if (idParam) {
     const idNum = Number(idParam);
     const match = filtered.find(j => Number(j.id) === idNum);
@@ -109,13 +115,15 @@ async function handleJokes(request, env, ctx) {
     return json({ mode: "id", joke: match }, 200);
   }
 
+  // /v1/joke/random
   if (url.pathname.endsWith("/random")) {
     const idx = cryptoRandomInt(filtered.length);
     return json({ mode: "random", joke: filtered[idx] }, 200);
   }
 
+  // /v1/joke/today
   if (url.pathname.endsWith("/today")) {
-    const key = formatDateInTZ(new Date(), tz);
+    const key = formatDateInTZ(new Date(), tz); // YYYY-MM-DD in tz
     const idx = await stableIndex(`${key}:${SALT}`, filtered.length);
     return json({ mode: "today", date: key, tz, joke: filtered[idx] }, 200);
   }
@@ -132,6 +140,7 @@ async function fetchJokesFromRaw(ctx) {
     res = await fetch(JOKES_URL, { headers: { "User-Agent": "jotd-worker" } });
     if (!res.ok) throw new Error(`Failed to fetch jokes.json (${res.status})`);
 
+    // Cache upstream fetch for 5 minutes
     const cached = new Response(res.body, res);
     cached.headers.set("Cache-Control", "public, max-age=300");
     ctx.waitUntil(cache.put(cacheKey, cached.clone()));
@@ -169,7 +178,7 @@ async function handleAdminAdd(request, env) {
   let best = { score: 0, id: null, text: null };
 
   for (const j of jokes) {
-    if (!j?.text) continue;
+    if (!j || !j.text) continue;
     const normOld = normalizeText(j.text);
 
     if (normOld === normNew) {
@@ -193,6 +202,7 @@ async function handleAdminAdd(request, env) {
     );
   }
 
+  // Assign next id
   const maxId = jokes.reduce((m, j) => Math.max(m, Number(j?.id || 0)), 0);
   const newJoke = { id: maxId + 1, text, rating, category, active };
 
@@ -216,7 +226,10 @@ async function githubReadJokesFile(env) {
   if (!env.GITHUB_TOKEN) throw new Error("Missing env.GITHUB_TOKEN");
   if (!owner || !repo) throw new Error("Missing GITHUB_OWNER/GITHUB_REPO");
 
-  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(branch)}`;
+  const url =
+    `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}` +
+    `?ref=${encodeURIComponent(branch)}`;
+
   const res = await fetch(url, {
     headers: {
       Authorization: `Bearer ${env.GITHUB_TOKEN}`,
@@ -246,6 +259,7 @@ async function githubWriteJokesFile(env, sha, newContent, message) {
   const path = env.JOKES_PATH || "jokes.json";
 
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+
   const body = {
     message,
     content: btoa(newContent),
@@ -382,7 +396,7 @@ async function refresh(){
   tbody.innerHTML = "";
   for(const j of data.jokes.slice().reverse().slice(0, 50)){
     const tr = document.createElement("tr");
-    tr.innerHTML = \`<td>\${j.id}</td><td>\${j.rating}</td><td>\${j.category}</td><td>\${j.active}</td><td>\${escapeHtml(j.text)}</td>\`;
+    tr.innerHTML = "<td>" + j.id + "</td><td>" + j.rating + "</td><td>" + j.category + "</td><td>" + j.active + "</td><td>" + escapeHtml(j.text) + "</td>";
     tbody.appendChild(tr);
   }
   table.style.display = "";
@@ -486,14 +500,14 @@ function formatDateInTZ(date, timeZone) {
 function normalizeText(s) {
   return String(s)
     .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/[^a-z0-9\\s]/g, " ")
     .replace(/\\s+/g, " ")
     .trim();
 }
 
 function trigrams(s) {
   const t = new Set();
-  const padded = \`  \${s}  \`;
+  const padded = `  ${s}  `;
   for (let i = 0; i < padded.length - 2; i++) t.add(padded.slice(i, i + 3));
   return t;
 }

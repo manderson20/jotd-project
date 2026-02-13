@@ -677,5 +677,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1095,
+    "text": "Main's Law: For every action there is an equal and opposite government program.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

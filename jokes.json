@@ -1,35 +1,240 @@
 [
-  { "id": 1, "text": "Why do programmers prefer dark mode? Because light attracts bugs.", "rating": "G", "category": "tech", "active": true },
-  { "id": 2, "text": "I told my computer I needed a break… it said 'No problem — I’ll go to sleep.'", "rating": "G", "category": "tech", "active": true },
-  { "id": 3, "text": "Why did the scarecrow get promoted? He was outstanding in his field.", "rating": "G", "category": "dad", "active": true },
-  { "id": 1001, "text": "I tried to teach my router a bedtime routine. Now it only disconnects after a story.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1002, "text": "Why did the keyboard break up with the mouse? It felt like it was being clicked with.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1003, "text": "I told my computer I’d clean up my files. It opened the recycle bin like, 'be my guest.'", "rating": "G", "category": "tech", "active": true },
-  { "id": 1004, "text": "My code was so polite today. It kept returning early.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1005, "text": "Why don’t servers ever get lonely? They have plenty of connections.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1006, "text": "I asked DNS for directions. It said, 'That depends—what do you *mean* by home?'", "rating": "G", "category": "tech", "active": true },
-  { "id": 1007, "text": "Why did the laptop bring a jacket? It heard the office was full of cold starts.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1008, "text": "I tried to make a belt out of USB cables. Total waist of bandwidth.", "rating": "G", "category": "pun", "active": true },
-  { "id": 1009, "text": "My password is so strong it refuses to lift anything.", "rating": "G", "category": "dad", "active": true },
-  { "id": 1010, "text": "Why did the spreadsheet look confident? It had all its cells together.", "rating": "G", "category": "office", "active": true },
-  { "id": 1011, "text": "I set my alarm to 'update mode.' Now it wakes me up, restarts, and forgets why.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1012, "text": "Why did the printer get invited to every party? It really knows how to make an impression.", "rating": "G", "category": "office", "active": true },
-  { "id": 1013, "text": "I bought a book on debugging. It was full of plot fixes.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1014, "text": "Why did the cable go to school? To improve its connection skills.", "rating": "G", "category": "dad", "active": true },
-  { "id": 1015, "text": "My Wi-Fi and I are taking a break. It says I’m too attached.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1016, "text": "Why did the monitor join a band? It had great screen presence.", "rating": "G", "category": "dad", "active": true },
-  { "id": 1017, "text": "I asked my code for a hint. It said, 'Try again.'", "rating": "G", "category": "tech", "active": true },
-  { "id": 1018, "text": "Why did the cloud bring an umbrella? Too many requests for showers.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1019, "text": "I tried to make a joke about RAM… but I couldn’t remember it.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1020, "text": "Why did the calendar feel stressed? It had too many dates.", "rating": "G", "category": "dad", "active": true },
-  { "id": 1021, "text": "My computer loves winter. It runs better when the fans are in season.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1022, "text": "Why did the USB stick apply for a job? It wanted to be more than just storage.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1023, "text": "I told my laptop to stop multitasking. It opened 12 tabs to prove it could.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1024, "text": "Why don’t bugs ever get promoted? They keep showing up in the wrong places.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1025, "text": "I tried to write a joke about backups. Don’t worry—I saved it for later.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1026, "text": "Why did the helpdesk bring snacks? For the support tickets.", "rating": "G", "category": "office", "active": true },
-  { "id": 1027, "text": "My mouse is very dramatic. It always makes a point.", "rating": "G", "category": "dad", "active": true },
-  { "id": 1028, "text": "Why did the switch feel powerful? It controlled the room’s mood lighting.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1029, "text": "I tried to make a joke about encryption… but it’s classified.", "rating": "G", "category": "tech", "active": true },
-  { "id": 1030, "text": "Why did the QR code get a standing ovation? It really brought people together.", "rating": "G", "category": "dad", "active": true }
+  {
+    "id": 1,
+    "text": "Why do programmers prefer dark mode? Because light attracts bugs.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 2,
+    "text": "I told my computer I needed a break… it said 'No problem — I’ll go to sleep.'",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 3,
+    "text": "Why did the scarecrow get promoted? He was outstanding in his field.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1001,
+    "text": "I tried to teach my router a bedtime routine. Now it only disconnects after a story.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1002,
+    "text": "Why did the keyboard break up with the mouse? It felt like it was being clicked with.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1003,
+    "text": "I told my computer I’d clean up my files. It opened the recycle bin like, 'be my guest.'",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1004,
+    "text": "My code was so polite today. It kept returning early.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1005,
+    "text": "Why don’t servers ever get lonely? They have plenty of connections.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1006,
+    "text": "I asked DNS for directions. It said, 'That depends—what do you *mean* by home?'",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1007,
+    "text": "Why did the laptop bring a jacket? It heard the office was full of cold starts.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1008,
+    "text": "I tried to make a belt out of USB cables. Total waist of bandwidth.",
+    "rating": "G",
+    "category": "pun",
+    "active": true
+  },
+  {
+    "id": 1009,
+    "text": "My password is so strong it refuses to lift anything.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1010,
+    "text": "Why did the spreadsheet look confident? It had all its cells together.",
+    "rating": "G",
+    "category": "office",
+    "active": true
+  },
+  {
+    "id": 1011,
+    "text": "I set my alarm to 'update mode.' Now it wakes me up, restarts, and forgets why.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1012,
+    "text": "Why did the printer get invited to every party? It really knows how to make an impression.",
+    "rating": "G",
+    "category": "office",
+    "active": true
+  },
+  {
+    "id": 1013,
+    "text": "I bought a book on debugging. It was full of plot fixes.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1014,
+    "text": "Why did the cable go to school? To improve its connection skills.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1015,
+    "text": "My Wi-Fi and I are taking a break. It says I’m too attached.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1016,
+    "text": "Why did the monitor join a band? It had great screen presence.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1017,
+    "text": "I asked my code for a hint. It said, 'Try again.'",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1018,
+    "text": "Why did the cloud bring an umbrella? Too many requests for showers.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1019,
+    "text": "I tried to make a joke about RAM… but I couldn’t remember it.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1020,
+    "text": "Why did the calendar feel stressed? It had too many dates.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1021,
+    "text": "My computer loves winter. It runs better when the fans are in season.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1022,
+    "text": "Why did the USB stick apply for a job? It wanted to be more than just storage.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1023,
+    "text": "I told my laptop to stop multitasking. It opened 12 tabs to prove it could.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1024,
+    "text": "Why don’t bugs ever get promoted? They keep showing up in the wrong places.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1025,
+    "text": "I tried to write a joke about backups. Don’t worry—I saved it for later.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1026,
+    "text": "Why did the helpdesk bring snacks? For the support tickets.",
+    "rating": "G",
+    "category": "office",
+    "active": true
+  },
+  {
+    "id": 1027,
+    "text": "My mouse is very dramatic. It always makes a point.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1028,
+    "text": "Why did the switch feel powerful? It controlled the room’s mood lighting.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1029,
+    "text": "I tried to make a joke about encryption… but it’s classified.",
+    "rating": "G",
+    "category": "tech",
+    "active": true
+  },
+  {
+    "id": 1030,
+    "text": "Why did the QR code get a standing ovation? It really brought people together.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1031,
+    "text": "Why can't football players wear glasses on the field? Because it's a contact sport!",
+    "rating": "G",
+    "category": "sports",
+    "active": true
+  }
 ]

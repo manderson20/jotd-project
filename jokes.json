@@ -824,5 +824,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1116,
+    "text": "To be sure of hitting the target, shoot first and, whatever you hit, call it the target.",
+    "rating": "PG",
+    "category": "fortune",
+    "active": true
   }
 ]

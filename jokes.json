@@ -292,5 +292,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1040,
+    "text": "How do you catch a squirrel? Climb a tree and act like a nut!",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

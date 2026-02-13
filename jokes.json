@@ -719,5 +719,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1101,
+    "text": "Blessed is he who has reached the point of no return and knows it, for he shall enjoy living. -- W.C. Bennett",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

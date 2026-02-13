@@ -880,5 +880,33 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1124,
+    "text": "What's the best present you can give? A broken drum. Nobody can beat that.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1125,
+    "text": "Why are fish so smart? They swim in schools.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1126,
+    "text": "I only sing in the car when I'm going in reverse. I'm a backup singer.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
+    "id": 1127,
+    "text": "What did the football coach say to the vending machine? I want my quarter back.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

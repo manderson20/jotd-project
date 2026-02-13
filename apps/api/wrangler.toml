@@ -1,8 +1,14 @@
 name = "joke-api"
 main = "src/index.js"
 compatibility_date = "2026-02-12"
+
 [vars]
+TZ = "America/Chicago"
+
+# GitHub repo settings (used for admin read/write of jokes.json)
 GITHUB_OWNER = "manderson20"
-GITHUB_REPO  = "jotd-project"
+GITHUB_REPO = "jotd-project"
 GITHUB_BRANCH = "main"
-JOKES_PATH = "jokes.json"
+
+# IMPORTANT: file moved in your monorepo
+JOKES_PATH = "apps/api/jokes.json"

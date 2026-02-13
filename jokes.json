@@ -621,5 +621,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1087,
+    "text": "First Law of Bicycling: No matter which way you ride, it's uphill and against the wind.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

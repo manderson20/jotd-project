@@ -425,5 +425,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1059,
+    "text": "There were in this country two very large monopolies. The larger of the two had the following record: the Vietnam War, Watergate, double- digit inflation, fuel and energy shortages, bankrupt airlines, and the 8-cent postcard. The second was responsible for such things as the transistor, the solar cell, lasers, synthetic crystals, high fidelity stereo recording, sound motion pictures, radio astronomy, negative feedback, magnetic tape, magnetic \"bubbles\", electronic switching systems, microwave radio and TV relay systems, information theory, the first electrical digital computer, and the first communications satellite. Guess which one got to tell the other how to run the telephone business?",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

@@ -348,5 +348,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1048,
+    "text": "Why don't skeletons fight each other? They don't have the guts!",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

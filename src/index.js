@@ -226,4 +226,283 @@ async function githubReadJokesFile(env) {
   });
 
   if (!res.ok) {
-    const t = await res.text
+    const t = await res.text().catch(() => "");
+    throw new Error(`GitHub read failed (${res.status}): ${t}`);
+  }
+
+  const data = await res.json();
+  const sha = data.sha;
+  const decoded = atob(String(data.content || "").replace(/\n/g, ""));
+  const jokes = JSON.parse(decoded);
+
+  if (!Array.isArray(jokes)) throw new Error("jokes.json must be a JSON array");
+  return { jokes, sha };
+}
+
+async function githubWriteJokesFile(env, sha, newContent, message) {
+  const owner = env.GITHUB_OWNER;
+  const repo = env.GITHUB_REPO;
+  const branch = env.GITHUB_BRANCH || "main";
+  const path = env.JOKES_PATH || "jokes.json";
+
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+  const body = {
+    message,
+    content: btoa(newContent),
+    sha,
+    branch
+  };
+
+  const res = await fetch(url, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json",
+      "User-Agent": "jotd-worker"
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (!res.ok) {
+    const t = await res.text().catch(() => "");
+    throw new Error(`GitHub write failed (${res.status}): ${t}`);
+  }
+}
+
+// ------------------ Admin UI HTML ------------------
+
+function renderAdminHtml() {
+  return `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>JOTD Admin</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:24px;max-width:900px}
+    input,select,textarea,button{font-size:16px;padding:10px}
+    textarea{width:100%;min-height:120px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .row > *{flex:1}
+    .card{border:1px solid #ddd;border-radius:10px;padding:16px;margin:16px 0}
+    code{background:#f6f6f6;padding:2px 6px;border-radius:6px}
+    .err{color:#b00020;white-space:pre-wrap}
+    .ok{color:#0a7a2f}
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #eee;padding:8px;text-align:left}
+  </style>
+</head>
+<body>
+  <h1>Joke of the Day Admin</h1>
+  <p>Paste your API key below. The page is public, but the API calls require <code>X-API-Key</code>.</p>
+
+  <div class="card">
+    <h2>Add a joke</h2>
+    <div class="row">
+      <div>
+        <label>Rating</label><br/>
+        <select id="rating">
+          <option>G</option>
+          <option>PG</option>
+          <option>PG-13</option>
+          <option>R</option>
+        </select>
+      </div>
+      <div>
+        <label>Category</label><br/>
+        <input id="category" placeholder="tech, dad, school, pun..." />
+      </div>
+      <div>
+        <label>Active</label><br/>
+        <select id="active">
+          <option value="true" selected>true</option>
+          <option value="false">false</option>
+        </select>
+      </div>
+    </div>
+
+    <p>
+      <label>Joke text</label><br/>
+      <textarea id="text" placeholder="Type the joke here..."></textarea>
+    </p>
+
+    <p>
+      <label>API Key</label><br/>
+      <input id="key" type="password" placeholder="Paste your X-API-Key here" />
+    </p>
+
+    <button id="submit">Add joke</button>
+    <p id="status"></p>
+    <p class="err" id="error"></p>
+  </div>
+
+  <div class="card">
+    <h2>Preview current jokes</h2>
+    <button id="refresh">Refresh list</button>
+    <p id="count"></p>
+    <table id="table" style="display:none">
+      <thead><tr><th>ID</th><th>Rating</th><th>Category</th><th>Active</th><th>Text</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+<script>
+const statusEl = document.getElementById("status");
+const errorEl  = document.getElementById("error");
+const table    = document.getElementById("table");
+const tbody    = document.getElementById("tbody");
+const countEl  = document.getElementById("count");
+
+function setStatus(msg, ok=true){
+  statusEl.className = ok ? "ok" : "err";
+  statusEl.textContent = msg;
+}
+function setError(msg){
+  errorEl.textContent = msg || "";
+}
+
+async function refresh(){
+  setError("");
+  setStatus("Loading...", true);
+
+  const key = document.getElementById("key").value.trim();
+  const res = await fetch("/v1/admin/jokes", { headers: { "X-API-Key": key } });
+  const data = await res.json().catch(()=>({}));
+
+  if(!res.ok){
+    setStatus("Failed", false);
+    setError(JSON.stringify(data, null, 2));
+    return;
+  }
+
+  setStatus("Loaded.", true);
+  countEl.textContent = "Count: " + data.count;
+
+  tbody.innerHTML = "";
+  for(const j of data.jokes.slice().reverse().slice(0, 50)){
+    const tr = document.createElement("tr");
+    tr.innerHTML = \`<td>\${j.id}</td><td>\${j.rating}</td><td>\${j.category}</td><td>\${j.active}</td><td>\${escapeHtml(j.text)}</td>\`;
+    tbody.appendChild(tr);
+  }
+  table.style.display = "";
+}
+
+function escapeHtml(s){
+  return String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+}
+
+document.getElementById("refresh").addEventListener("click", refresh);
+
+document.getElementById("submit").addEventListener("click", async () => {
+  setError("");
+  setStatus("Submitting...", true);
+
+  const key = document.getElementById("key").value.trim();
+  const text = document.getElementById("text").value;
+  const rating = document.getElementById("rating").value;
+  const category = document.getElementById("category").value || "general";
+  const active = document.getElementById("active").value === "true";
+
+  const res = await fetch("/v1/admin/jokes", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-API-Key": key },
+    body: JSON.stringify({ text, rating, category, active })
+  });
+
+  const data = await res.json().catch(()=>({}));
+
+  if(res.status === 409){
+    setStatus("Rejected (duplicate/similar)", false);
+    setError(JSON.stringify(data, null, 2));
+    return;
+  }
+
+  if(!res.ok){
+    setStatus("Failed", false);
+    setError(JSON.stringify(data, null, 2));
+    return;
+  }
+
+  setStatus("Added joke #" + data.added.id, true);
+  document.getElementById("text").value = "";
+  refresh();
+});
+
+refresh();
+</script>
+</body>
+</html>`;
+}
+
+// ------------------ Utilities ------------------
+
+function passesRating(jokeRating, requestedRating) {
+  const order = ["G", "PG", "PG-13", "R"];
+  const jr = String(jokeRating || "G").toUpperCase();
+  const rr = String(requestedRating || "G").toUpperCase();
+  const jIdx = order.indexOf(jr) === -1 ? 0 : order.indexOf(jr);
+  const rIdx = order.indexOf(rr) === -1 ? 0 : order.indexOf(rr);
+  return jIdx <= rIdx;
+}
+
+function json(obj, status = 200, extraHeaders = {}) {
+  return new Response(JSON.stringify(obj, null, 2), {
+    status,
+    headers: { "content-type": "application/json; charset=utf-8", ...extraHeaders }
+  });
+}
+
+async function stableIndex(input, modulo) {
+  const data = new TextEncoder().encode(input);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  const bytes = new Uint8Array(hash);
+  let x = 0n;
+  for (let i = 0; i < 8; i++) x = (x << 8n) + BigInt(bytes[i]);
+  return Number(x % BigInt(modulo));
+}
+
+function cryptoRandomInt(max) {
+  const buf = new Uint32Array(1);
+  crypto.getRandomValues(buf);
+  return buf[0] % max;
+}
+
+function formatDateInTZ(date, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(date);
+
+  const y = parts.find(p => p.type === "year")?.value;
+  const m = parts.find(p => p.type === "month")?.value;
+  const d = parts.find(p => p.type === "day")?.value;
+
+  return `${y}-${m}-${d}`;
+}
+
+function normalizeText(s) {
+  return String(s)
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\\s+/g, " ")
+    .trim();
+}
+
+function trigrams(s) {
+  const t = new Set();
+  const padded = \`  \${s}  \`;
+  for (let i = 0; i < padded.length - 2; i++) t.add(padded.slice(i, i + 3));
+  return t;
+}
+
+function jaccardTrigrams(a, b) {
+  const A = trigrams(a);
+  const B = trigrams(b);
+  let inter = 0;
+  for (const x of A) if (B.has(x)) inter++;
+  const union = A.size + B.size - inter;
+  return union === 0 ? 0 : inter / union;
+}

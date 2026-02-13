@@ -250,5 +250,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1034,
+    "text": "When is a piece of wood like a King? When it is a ruler!",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

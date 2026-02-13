@@ -586,5 +586,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1082,
+    "text": "There are four stages to a marriage. First there's the affair, then there's the marriage, then children and finally the fourth stage, without which you cannot know a woman, the divorce. -- Norman Mailer",
+    "rating": "PG-13",
+    "category": "fortune",
+    "active": true
   }
 ]

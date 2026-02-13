@@ -663,5 +663,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1093,
+    "text": "Nothing is faster than the speed of light ... To prove this to yourself, try opening the refrigerator door before the light comes on.",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

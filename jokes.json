@@ -873,5 +873,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1123,
+    "text": "\"I am returning this otherwise good typing paper to you because someone has printed gibberish all over it and put your name at the top.\" -- English Professor, Ohio University",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

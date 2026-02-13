@@ -523,5 +523,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1073,
+    "text": "Beam me up, Scotty! It ate my phaser!",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

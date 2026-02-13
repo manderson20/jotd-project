@@ -334,5 +334,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1046,
+    "text": "I used to have a job at a calendar factory, but I got fired because I took a couple of days off.",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

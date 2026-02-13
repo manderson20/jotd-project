@@ -859,5 +859,12 @@
     "rating": "PG",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1121,
+    "text": "LOVE: I'll let you play with my life if you'll let me play with yours.",
+    "rating": "PG",
+    "category": "fortune",
+    "active": true
   }
 ]

@@ -551,5 +551,12 @@
     "rating": "G",
     "category": "fortune",
     "active": true
+  },
+  {
+    "id": 1077,
+    "text": "You can bring any calculator you like to the midterm, as long as it doesn't dim the lights when you turn it on. -- Hepler, Systems Design 182",
+    "rating": "G",
+    "category": "fortune",
+    "active": true
   }
 ]

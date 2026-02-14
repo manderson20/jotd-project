@@ -922,5 +922,12 @@
     "rating": "G",
     "category": "dad",
     "active": true
+  },
+  {
+    "id": 1130,
+    "text": "What did one toilet say to the other? \"You look a bit flushed.\"",
+    "rating": "G",
+    "category": "dad",
+    "active": true
   }
 ]

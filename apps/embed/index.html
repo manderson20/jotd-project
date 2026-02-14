@@ -228,277 +228,220 @@
     </div>
   </div>
 
-  <script>
-    // ---- Configuration (endpoints) ----
-    // Your Worker should expose endpoints similar to:
-    //   GET  /admin/jokes   -> returns JSON array of jokes
-    //   PUT  /admin/jokes   -> accepts JSON array of jokes (writes apps/api/jokes.json)
-    //
-    // If your Worker uses different paths, change these two lines:
-    const ADMIN_GET_PATH = "/v1/admin/jokes";
-    const ADMIN_PUT_PATH = "/v1/admin/jokes";
+<script>
+  // ---- Correct Worker endpoints ----
+  const ADMIN_GET_PATH = "/v1/admin/jokes";
+  const ADMIN_PUT_PATH = "/v1/admin/jokes";
 
-    // ---- State ----
-    let jokes = [];
-    let loaded = false;
+  // ---- State ----
+  let jokes = [];
+  let jokesSha = null;
+  let loaded = false;
 
-    const el = (id) => document.getElementById(id);
-    const statusEl = el("status");
-    const countEl = el("count");
-    const loadedBadge = el("loadedBadge");
+  const el = (id) => document.getElementById(id);
+  const statusEl = el("status");
+  const countEl = el("count");
+  const loadedBadge = el("loadedBadge");
 
-    function setStatus(msg) { statusEl.textContent = msg; }
-    function setCount() { countEl.textContent = `${jokes.length} jokes`; }
-    function setLoadedBadge() { loadedBadge.textContent = loaded ? "Loaded" : "Not loaded"; }
+  function setStatus(msg) { statusEl.textContent = msg; }
+  function setCount() { countEl.textContent = `${jokes.length} jokes`; }
+  function setLoadedBadge() { loadedBadge.textContent = loaded ? "Loaded" : "Not loaded"; }
 
-    function apiBase() {
-      return el("apiBase").value.trim().replace(/\/+$/, "");
-    }
-    function apiKey() {
-      return el("apiKey").value.trim();
-    }
+  function apiBase() {
+    return el("apiBase").value.trim().replace(/\/+$/, "");
+  }
 
-    function headers() {
-      const key = apiKey();
-      const h = { "Content-Type": "application/json" };
-      if (key) h["X-API-Key"] = key;
-      return h;
-    }
+  function apiKey() {
+    return el("apiKey").value.trim();
+  }
 
-    function nextId() {
-      const max = jokes.reduce((m, j) => Math.max(m, Number(j.id) || 0), 0);
-      return max + 1;
-    }
+  function headers() {
+    const key = apiKey();
+    const h = { "Content-Type": "application/json" };
+    if (key) h["X-API-Key"] = key;
+    return h;
+  }
 
-    function sanitizeJoke(j) {
-      // Keep structure consistent
-      return {
-        id: Number(j.id),
-        text: String(j.text ?? "").trim(),
-        rating: String(j.rating ?? "G").trim(),
-        category: String(j.category ?? "misc").trim(),
-        active: Boolean(j.active)
-      };
-    }
+  function nextId() {
+    const max = jokes.reduce((m, j) => Math.max(m, Number(j.id) || 0), 0);
+    return max + 1;
+  }
 
-    // ---- Rendering ----
-    function renderTable() {
-      const body = el("jokesBody");
-      body.innerHTML = "";
+  function sanitizeJoke(j) {
+    return {
+      id: Number(j.id),
+      text: String(j.text ?? "").trim(),
+      rating: String(j.rating ?? "G").trim(),
+      category: String(j.category ?? "misc").trim(),
+      active: Boolean(j.active)
+    };
+  }
 
-      if (!loaded) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td colspan="6" style="color: var(--muted);">Click “Load jokes” first…</td>`;
-        body.appendChild(tr);
-        setCount();
-        setLoadedBadge();
-        return;
-      }
-
-      if (jokes.length === 0) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td colspan="6" style="color: var(--muted);">No jokes found.</td>`;
-        body.appendChild(tr);
-        setCount();
-        setLoadedBadge();
-        return;
-      }
-
-      jokes.forEach((j, idx) => {
-        const tr = document.createElement("tr");
-
-        tr.innerHTML = `
-          <td><span class="idpill mono">${j.id}</span></td>
-
-          <td class="cellText">
-            <textarea data-field="text" data-idx="${idx}">${escapeHtml(j.text)}</textarea>
-          </td>
-
-          <td class="cellSmall">
-            <select data-field="rating" data-idx="${idx}">
-              ${optionHtml(j.rating, ["G","PG","PG-13"])}
-            </select>
-          </td>
-
-          <td class="cellSmall">
-            <input data-field="category" data-idx="${idx}" value="${escapeAttr(j.category)}" />
-          </td>
-
-          <td class="cellSmall">
-            <select data-field="active" data-idx="${idx}">
-              ${optionHtml(String(Boolean(j.active)), ["true","false"])}
-            </select>
-          </td>
-
-          <td class="right">
-            <button class="danger" data-action="delete" data-idx="${idx}">Delete</button>
-          </td>
-        `;
-
-        body.appendChild(tr);
+  // ---- Load jokes ----
+  async function loadJokes() {
+    try {
+      setStatus("Loading...");
+      const res = await fetch(apiBase() + ADMIN_GET_PATH, {
+        method: "GET",
+        headers: headers()
       });
 
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Load failed (${res.status}). ${text}`);
+      }
+
+      const data = await res.json();
+      if (!data || !Array.isArray(data.jokes)) {
+        throw new Error("Worker did not return { sha, jokes: [...] }");
+      }
+
+      jokesSha = data.sha || null;
+      jokes = data.jokes.map(sanitizeJoke);
+      loaded = true;
+
+      setStatus(`Loaded ${jokes.length} jokes.`);
+      renderTable();
+    } catch (err) {
+      loaded = false;
+      jokes = [];
+      jokesSha = null;
+      renderTable();
+      setStatus(err.message || String(err));
+    }
+  }
+
+  // ---- Save jokes ----
+  async function saveJokes() {
+    try {
+      if (!loaded) throw new Error("Load jokes first.");
+
+      jokes = jokes.map(sanitizeJoke);
+
+      setStatus("Saving...");
+      const res = await fetch(apiBase() + ADMIN_PUT_PATH, {
+        method: "PUT",
+        headers: headers(),
+        body: JSON.stringify({ sha: jokesSha, jokes }, null, 2)
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Save failed (${res.status}). ${text}`);
+      }
+
+      const data = await res.json().catch(() => ({}));
+      if (data && data.sha) jokesSha = data.sha;
+
+      setStatus("Saved successfully.");
+      renderTable();
+    } catch (err) {
+      setStatus(err.message || String(err));
+    }
+  }
+
+  // ---- Add joke ----
+  async function addJoke(andSave) {
+    try {
+      if (!loaded) throw new Error("Load jokes first.");
+
+      const text = el("newText").value.trim();
+      const rating = el("newRating").value;
+      const category = el("newCategory").value.trim() || "misc";
+      const active = (el("newActive").value === "true");
+
+      if (!text) throw new Error("Please enter joke text.");
+
+      const j = sanitizeJoke({
+        id: nextId(),
+        text,
+        rating,
+        category,
+        active
+      });
+
+      jokes.push(j);
+      el("newText").value = "";
+      setStatus(`Added joke #${j.id}.`);
+      renderTable();
+
+      if (andSave) await saveJokes();
+    } catch (err) {
+      setStatus(err.message || String(err));
+    }
+  }
+
+  // ---- Render table ----
+  function renderTable() {
+    const body = el("jokesBody");
+    body.innerHTML = "";
+
+    if (!loaded) {
+      body.innerHTML = `<tr><td colspan="6" style="color: rgba(255,255,255,0.6);">Click “Load jokes” first…</td></tr>`;
       setCount();
       setLoadedBadge();
+      return;
     }
 
-    function optionHtml(current, options) {
-      return options.map(v => {
-        const sel = String(v) === String(current) ? "selected" : "";
-        return `<option value="${escapeAttr(v)}" ${sel}>${escapeHtml(v)}</option>`;
-      }).join("");
-    }
-
-    // Basic escaping (avoid breaking HTML when rendering text into inputs)
-    function escapeHtml(s) {
-      return String(s)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;");
-    }
-    function escapeAttr(s) {
-      return String(s)
-        .replaceAll("&", "&amp;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;");
-    }
-
-    // ---- Event wiring ----
-    el("btnClearKey").addEventListener("click", () => {
-      el("apiKey").value = "";
-      setStatus("Key cleared.");
+    jokes.forEach((j, idx) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${j.id}</td>
+        <td><textarea data-field="text" data-idx="${idx}">${j.text}</textarea></td>
+        <td>
+          <select data-field="rating" data-idx="${idx}">
+            <option ${j.rating==="G"?"selected":""}>G</option>
+            <option ${j.rating==="PG"?"selected":""}>PG</option>
+            <option ${j.rating==="PG-13"?"selected":""}>PG-13</option>
+          </select>
+        </td>
+        <td><input data-field="category" data-idx="${idx}" value="${j.category}" /></td>
+        <td>
+          <select data-field="active" data-idx="${idx}">
+            <option value="true" ${j.active?"selected":""}>true</option>
+            <option value="false" ${!j.active?"selected":""}>false</option>
+          </select>
+        </td>
+        <td><button data-del="${idx}">Delete</button></td>
+      `;
+      body.appendChild(tr);
     });
 
-    el("btnLoad").addEventListener("click", loadJokes);
-    el("btnSave").addEventListener("click", saveJokes);
+    setCount();
+    setLoadedBadge();
+  }
 
-    el("btnAdd").addEventListener("click", () => addJoke(false));
-    el("btnAddAndSave").addEventListener("click", () => addJoke(true));
+  // ---- Events ----
+  el("btnLoad").addEventListener("click", loadJokes);
+  el("btnSave").addEventListener("click", saveJokes);
+  el("btnAdd").addEventListener("click", () => addJoke(false));
+  el("btnAddAndSave").addEventListener("click", () => addJoke(true));
+  el("btnClearKey").addEventListener("click", () => {
+    el("apiKey").value = "";
+    setStatus("Key cleared.");
+  });
 
-    // Delegate edits + delete actions
-    el("jokesTable").addEventListener("input", (e) => {
-      const t = e.target;
-      const idx = t?.dataset?.idx;
-      const field = t?.dataset?.field;
-      if (idx == null || field == null) return;
-      if (!jokes[idx]) return;
+  el("jokesTable").addEventListener("input", (e) => {
+    const t = e.target;
+    const idx = t.dataset.idx;
+    const field = t.dataset.field;
+    if (idx == null || field == null || !jokes[idx]) return;
 
-      if (field === "active") {
-        jokes[idx][field] = (t.value === "true");
-      } else {
-        jokes[idx][field] = t.value;
-      }
-    });
-
-    el("jokesTable").addEventListener("click", (e) => {
-      const btn = e.target;
-      if (btn?.dataset?.action !== "delete") return;
-      const idx = Number(btn.dataset.idx);
-      if (!Number.isFinite(idx) || !jokes[idx]) return;
-
-      const j = jokes[idx];
-      const ok = confirm(`Delete joke #${j.id}?`);
-      if (!ok) return;
-
-      jokes.splice(idx, 1);
-      setStatus(`Deleted joke #${j.id}.`);
-      renderTable();
-    });
-
-    // ---- Actions ----
-    async function loadJokes() {
-      try {
-        setStatus("Loading...");
-        const res = await fetch(apiBase() + ADMIN_GET_PATH, {
-          method: "GET",
-          headers: headers()
-        });
-
-        if (!res.ok) {
-          const text = await safeText(res);
-          throw new Error(`Load failed (${res.status}). ${text}`);
-        }
-
-        const data = await res.json();
-        if (!Array.isArray(data)) throw new Error("Worker did not return an array.");
-
-        jokes = data.map(sanitizeJoke);
-        loaded = true;
-
-        setStatus(`Loaded ${jokes.length} jokes.`);
-        renderTable();
-      } catch (err) {
-        loaded = false;
-        jokes = [];
-        renderTable();
-        setStatus(err.message || String(err));
-      }
+    if (field === "active") {
+      jokes[idx][field] = (t.value === "true");
+    } else {
+      jokes[idx][field] = t.value;
     }
+  });
 
-    async function saveJokes() {
-      try {
-        if (!loaded) throw new Error("Load jokes first.");
-
-        // Normalize before saving
-        jokes = jokes.map(sanitizeJoke);
-
-        setStatus("Saving...");
-        const res = await fetch(apiBase() + ADMIN_PUT_PATH, {
-          method: "PUT",
-          headers: headers(),
-          body: JSON.stringify(jokes, null, 2)
-        });
-
-        if (!res.ok) {
-          const text = await safeText(res);
-          throw new Error(`Save failed (${res.status}). ${text}`);
-        }
-
-        setStatus("Saved successfully.");
-        renderTable();
-      } catch (err) {
-        setStatus(err.message || String(err));
-      }
-    }
-
-    async function addJoke(andSave) {
-      try {
-        if (!loaded) throw new Error("Load jokes first.");
-
-        const text = el("newText").value.trim();
-        const rating = el("newRating").value;
-        const category = el("newCategory").value.trim() || "misc";
-        const active = (el("newActive").value === "true");
-
-        if (!text) throw new Error("Please enter joke text.");
-
-        const j = sanitizeJoke({
-          id: nextId(),
-          text,
-          rating,
-          category,
-          active
-        });
-
-        jokes.push(j);
-        el("newText").value = "";
-        setStatus(`Added joke #${j.id}.`);
-        renderTable();
-
-        if (andSave) await saveJokes();
-      } catch (err) {
-        setStatus(err.message || String(err));
-      }
-    }
-
-    async function safeText(res) {
-      try { return (await res.text()).slice(0, 300); }
-      catch { return ""; }
-    }
-
-    // Initial render
+  el("jokesTable").addEventListener("click", (e) => {
+    const idx = e.target.dataset.del;
+    if (idx == null || !jokes[idx]) return;
+    jokes.splice(idx, 1);
     renderTable();
-  </script>
+  });
+
+  renderTable();
+</script>
 </body>
 </html>

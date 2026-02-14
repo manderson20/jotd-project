@@ -6,203 +6,499 @@
   <title>JOTD Admin</title>
   <style>
     :root {
-      --bg:#0f1115; --fg:#f3f4f6; --muted:#a7a7a7; --border:rgba(255,255,255,0.16);
-      --card:#141824; --link:#7ab7ff; --danger:#ff5a5f; --ok:#36d399;
-      --font: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      --radius: 14px;
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.08);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.65);
+      --border: rgba(255,255,255,0.12);
+      --btn: rgba(120,160,255,0.22);
+      --btn2: rgba(255,120,120,0.22);
+      --focus: rgba(120,160,255,0.5);
     }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--font)}
-    .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
-    .top{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px}
-    .title{font-size:18px;font-weight:800;letter-spacing:.02em}
-    .sub{color:var(--muted);font-size:13px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
-    input,textarea{
-      background:#0b0e16;color:var(--fg);border:1px solid var(--border);border-radius:10px;
-      padding:10px 12px;font-size:14px;outline:none
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(120,160,255,0.25), transparent 60%),
+                  radial-gradient(900px 600px at 110% 0%, rgba(120,255,200,0.12), transparent 60%),
+                  var(--bg);
+      color: var(--text);
     }
-    input{min-width:280px;flex:1}
-    textarea{width:100%;min-height:520px;line-height:1.35;white-space:pre;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
-    .btn{
-      appearance:none;border:1px solid var(--border);background:transparent;color:var(--link);
-      padding:10px 14px;border-radius:999px;font-size:14px;cursor:pointer
+
+    .wrap { max-width: 1200px; margin: 28px auto; padding: 0 16px 32px; }
+    .topbar {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+      margin-bottom: 14px;
     }
-    .btn:hover{filter:brightness(1.1)}
-    .btn.primary{background:rgba(122,183,255,0.12);border-color:rgba(122,183,255,0.35)}
-    .btn.danger{color:var(--danger);border-color:rgba(255,90,95,0.35);background:rgba(255,90,95,0.08)}
-    .pill{font-size:12px;color:var(--muted)}
-    .status{margin-top:10px;font-size:13px;white-space:pre-wrap}
-    .ok{color:var(--ok)}
-    .bad{color:var(--danger)}
-    code{color:#c7d2fe}
-    .help{margin-top:10px;color:var(--muted);font-size:13px;line-height:1.35}
+    h1 { font-size: 26px; margin: 0; letter-spacing: 0.2px; }
+    .subtitle { color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.25);
+    }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
+
+    label { display: block; font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 11px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.35);
+      color: var(--text);
+      outline: none;
+    }
+    textarea { min-height: 76px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--focus); box-shadow: 0 0 0 3px rgba(120,160,255,0.15); }
+
+    .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .row > * { flex: 1; min-width: 180px; }
+
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    button {
+      border: 1px solid var(--border);
+      background: var(--btn);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+    button:hover { filter: brightness(1.12); }
+    button.danger { background: var(--btn2); }
+    button.ghost { background: rgba(255,255,255,0.08); }
+
+    .notes { margin-top: 12px; color: var(--muted); font-size: 13px; }
+    .notes ul { margin: 8px 0 0 18px; }
+
+    .statusline {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .sectionTitle { margin: 0 0 10px; font-size: 14px; color: var(--muted); letter-spacing: 0.2px; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td {
+      border-top: 1px solid var(--border);
+      padding: 10px 8px;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    th { text-align: left; color: var(--muted); font-weight: 600; }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+
+    .idpill {
+      display: inline-block;
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .cellText textarea { min-height: 48px; }
+    .cellSmall input, .cellSmall select { padding: 8px 9px; border-radius: 10px; }
+
+    .right { text-align: right; }
+    .hint { color: var(--muted); font-size: 12px; margin-top: 6px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="top">
+    <div class="topbar">
       <div>
-        <div class="title">JOTD Admin</div>
-        <div class="sub">Load, edit, and save <code>apps/api/jokes.json</code> via the Worker admin API.</div>
+        <h1>JOTD Admin</h1>
+        <div class="subtitle">Load, edit, and save <span class="mono">apps/api/jokes.json</span> via your Worker admin API.</div>
       </div>
-      <div class="pill" id="who">Not loaded</div>
+      <div id="loadedBadge" class="subtitle">Not loaded</div>
     </div>
 
-    <div class="card" style="margin-bottom:12px">
-      <div class="row">
-        <div style="flex:2;min-width:320px">
-          <label>Worker API Base</label>
+    <div class="card">
+      <div class="grid">
+        <div>
+          <label for="apiBase">Worker API Base</label>
           <input id="apiBase" value="https://joke-api.mthwanderson20.workers.dev" />
+          <div class="hint">Example: <span class="mono">https://your-worker.yourname.workers.dev</span></div>
         </div>
-        <div style="flex:2;min-width:320px">
-          <label>Admin API Key (sent as <code>X-API-Key</code>)</label>
+
+        <div>
+          <label for="apiKey">Admin API Key <span class="muted">(sent as <span class="mono">X-API-Key</span>)</span></label>
           <input id="apiKey" type="password" placeholder="Paste your admin key here" />
+          <div class="hint">Stored only in your browser memory (not saved anywhere).</div>
         </div>
       </div>
 
-      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn primary" id="btnLoad">Load jokes</button>
-        <button class="btn primary" id="btnSave" disabled>Save jokes</button>
-        <button class="btn" id="btnFormat" disabled>Format JSON</button>
-        <button class="btn danger" id="btnClear">Clear key</button>
+      <div class="btns">
+        <button id="btnLoad">Load jokes</button>
+        <button id="btnSave">Save jokes</button>
+        <button id="btnClearKey" class="danger">Clear key</button>
       </div>
 
-      <div class="status" id="status"></div>
-
-      <div class="help">
-        Notes:
+      <div class="notes">
         <ul>
           <li>This page is static (Cloudflare Pages). Your key is only used in your browser request headers.</li>
           <li>The Worker uses its server-side GitHub token to read/write the jokes file.</li>
         </ul>
       </div>
+
+      <div class="statusline">
+        <div id="status">Ready.</div>
+        <div id="count" class="mono">0 jokes</div>
+      </div>
     </div>
 
+    <div style="height: 14px"></div>
+
     <div class="card">
-      <label>Editor (JSON)</label>
-      <textarea id="editor" spellcheck="false" placeholder="Click “Load jokes” first…"></textarea>
+      <div class="sectionTitle">Add a new joke</div>
+
+      <label for="newText">Joke text</label>
+      <textarea id="newText" placeholder="Type the joke here..."></textarea>
+
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label for="newRating">Rating</label>
+          <select id="newRating">
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG-13">PG-13</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="newCategory">Category</label>
+          <input id="newCategory" placeholder="e.g., dad, tech, pun, holiday" value="dad" />
+        </div>
+
+        <div style="min-width: 140px; flex: 0.6;">
+          <label for="newActive">Active</label>
+          <select id="newActive">
+            <option value="true" selected>true</option>
+            <option value="false">false</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button id="btnAdd">Add joke</button>
+        <button id="btnAddAndSave" class="ghost">Add & Save</button>
+      </div>
+
+      <div class="hint">IDs are assigned automatically (max existing ID + 1).</div>
+    </div>
+
+    <div style="height: 14px"></div>
+
+    <div class="card">
+      <div class="sectionTitle">Jokes list</div>
+      <div class="hint">Edit any row directly. Click “Save jokes” when you’re done.</div>
+
+      <div style="overflow:auto; margin-top: 10px;">
+        <table id="jokesTable">
+          <thead>
+            <tr>
+              <th style="width:110px;">ID</th>
+              <th>Text</th>
+              <th style="width:110px;">Rating</th>
+              <th style="width:160px;">Category</th>
+              <th style="width:110px;">Active</th>
+              <th style="width:110px;" class="right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jokesBody">
+            <tr><td colspan="6" style="color: var(--muted);">Click “Load jokes” first…</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-<script>
-  const $ = (id) => document.getElementById(id);
+  <script>
+    // ---- Configuration (endpoints) ----
+    // Your Worker should expose endpoints similar to:
+    //   GET  /admin/jokes   -> returns JSON array of jokes
+    //   PUT  /admin/jokes   -> accepts JSON array of jokes (writes apps/api/jokes.json)
+    //
+    // If your Worker uses different paths, change these two lines:
+    const ADMIN_GET_PATH = "/admin/jokes";
+    const ADMIN_PUT_PATH = "/admin/jokes";
 
-  const apiBaseEl = $("apiBase");
-  const apiKeyEl  = $("apiKey");
-  const editorEl  = $("editor");
-  const statusEl  = $("status");
-  const whoEl     = $("who");
+    // ---- State ----
+    let jokes = [];
+    let loaded = false;
 
-  const btnLoad   = $("btnLoad");
-  const btnSave   = $("btnSave");
-  const btnFormat = $("btnFormat");
-  const btnClear  = $("btnClear");
+    const el = (id) => document.getElementById(id);
+    const statusEl = el("status");
+    const countEl = el("count");
+    const loadedBadge = el("loadedBadge");
 
-  let lastSha = null;
+    function setStatus(msg) { statusEl.textContent = msg; }
+    function setCount() { countEl.textContent = `${jokes.length} jokes`; }
+    function setLoadedBadge() { loadedBadge.textContent = loaded ? "Loaded" : "Not loaded"; }
 
-  function setStatus(msg, kind) {
-    statusEl.className = "status " + (kind || "");
-    statusEl.textContent = msg || "";
-  }
-
-  function apiBase() {
-    return apiBaseEl.value.replace(/\/+$/, "");
-  }
-
-  function headers() {
-    const key = apiKeyEl.value.trim();
-    return {
-      "X-API-Key": key,
-      "Content-Type": "application/json"
-    };
-  }
-
-  async function loadDebug() {
-    const res = await fetch(apiBase() + "/v1/admin/debug", { headers: headers() });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data?.error || JSON.stringify(data, null, 2) || "debug failed");
-    whoEl.textContent = `Repo: ${data.GITHUB_OWNER}/${data.GITHUB_REPO} (${data.GITHUB_BRANCH})`;
-  }
-
-  async function loadJokes() {
-    setStatus("Loading…");
-    await loadDebug();
-
-    const res = await fetch(apiBase() + "/v1/admin/jokes", { headers: headers() });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data?.error || JSON.stringify(data, null, 2) || "load failed");
-
-    if (!data || !Array.isArray(data.jokes)) {
-      throw new Error("Unexpected response. Expected { sha, jokes: [...] }");
+    function apiBase() {
+      return el("apiBase").value.trim().replace(/\/+$/, "");
+    }
+    function apiKey() {
+      return el("apiKey").value.trim();
     }
 
-    lastSha = data.sha || null;
-    editorEl.value = JSON.stringify({ sha: lastSha, jokes: data.jokes }, null, 2);
-
-    btnSave.disabled = false;
-    btnFormat.disabled = false;
-
-    setStatus("Loaded OK ✅", "ok");
-  }
-
-  function formatJson() {
-    try {
-      const obj = JSON.parse(editorEl.value);
-      editorEl.value = JSON.stringify(obj, null, 2);
-      setStatus("Formatted ✅", "ok");
-    } catch (e) {
-      setStatus("Format failed: " + (e?.message || e), "bad");
-    }
-  }
-
-  async function saveJokes() {
-    setStatus("Saving…");
-
-    let payload;
-    try {
-      payload = JSON.parse(editorEl.value);
-    } catch (e) {
-      throw new Error("JSON is invalid: " + (e?.message || e));
+    function headers() {
+      const key = apiKey();
+      const h = { "Content-Type": "application/json" };
+      if (key) h["X-API-Key"] = key;
+      return h;
     }
 
-    if (!payload.sha) payload.sha = lastSha;
+    function nextId() {
+      const max = jokes.reduce((m, j) => Math.max(m, Number(j.id) || 0), 0);
+      return max + 1;
+    }
 
-    const res = await fetch(apiBase() + "/v1/admin/jokes", {
-      method: "PUT",
-      headers: headers(),
-      body: JSON.stringify(payload)
+    function sanitizeJoke(j) {
+      // Keep structure consistent
+      return {
+        id: Number(j.id),
+        text: String(j.text ?? "").trim(),
+        rating: String(j.rating ?? "G").trim(),
+        category: String(j.category ?? "misc").trim(),
+        active: Boolean(j.active)
+      };
+    }
+
+    // ---- Rendering ----
+    function renderTable() {
+      const body = el("jokesBody");
+      body.innerHTML = "";
+
+      if (!loaded) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td colspan="6" style="color: var(--muted);">Click “Load jokes” first…</td>`;
+        body.appendChild(tr);
+        setCount();
+        setLoadedBadge();
+        return;
+      }
+
+      if (jokes.length === 0) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td colspan="6" style="color: var(--muted);">No jokes found.</td>`;
+        body.appendChild(tr);
+        setCount();
+        setLoadedBadge();
+        return;
+      }
+
+      jokes.forEach((j, idx) => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td><span class="idpill mono">${j.id}</span></td>
+
+          <td class="cellText">
+            <textarea data-field="text" data-idx="${idx}">${escapeHtml(j.text)}</textarea>
+          </td>
+
+          <td class="cellSmall">
+            <select data-field="rating" data-idx="${idx}">
+              ${optionHtml(j.rating, ["G","PG","PG-13"])}
+            </select>
+          </td>
+
+          <td class="cellSmall">
+            <input data-field="category" data-idx="${idx}" value="${escapeAttr(j.category)}" />
+          </td>
+
+          <td class="cellSmall">
+            <select data-field="active" data-idx="${idx}">
+              ${optionHtml(String(Boolean(j.active)), ["true","false"])}
+            </select>
+          </td>
+
+          <td class="right">
+            <button class="danger" data-action="delete" data-idx="${idx}">Delete</button>
+          </td>
+        `;
+
+        body.appendChild(tr);
+      });
+
+      setCount();
+      setLoadedBadge();
+    }
+
+    function optionHtml(current, options) {
+      return options.map(v => {
+        const sel = String(v) === String(current) ? "selected" : "";
+        return `<option value="${escapeAttr(v)}" ${sel}>${escapeHtml(v)}</option>`;
+      }).join("");
+    }
+
+    // Basic escaping (avoid breaking HTML when rendering text into inputs)
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+    function escapeAttr(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    // ---- Event wiring ----
+    el("btnClearKey").addEventListener("click", () => {
+      el("apiKey").value = "";
+      setStatus("Key cleared.");
     });
 
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data?.error || JSON.stringify(data, null, 2) || "save failed");
+    el("btnLoad").addEventListener("click", loadJokes);
+    el("btnSave").addEventListener("click", saveJokes);
 
-    if (data.sha) {
-      lastSha = data.sha;
-      payload.sha = data.sha;
-      editorEl.value = JSON.stringify(payload, null, 2);
+    el("btnAdd").addEventListener("click", () => addJoke(false));
+    el("btnAddAndSave").addEventListener("click", () => addJoke(true));
+
+    // Delegate edits + delete actions
+    el("jokesTable").addEventListener("input", (e) => {
+      const t = e.target;
+      const idx = t?.dataset?.idx;
+      const field = t?.dataset?.field;
+      if (idx == null || field == null) return;
+      if (!jokes[idx]) return;
+
+      if (field === "active") {
+        jokes[idx][field] = (t.value === "true");
+      } else {
+        jokes[idx][field] = t.value;
+      }
+    });
+
+    el("jokesTable").addEventListener("click", (e) => {
+      const btn = e.target;
+      if (btn?.dataset?.action !== "delete") return;
+      const idx = Number(btn.dataset.idx);
+      if (!Number.isFinite(idx) || !jokes[idx]) return;
+
+      const j = jokes[idx];
+      const ok = confirm(`Delete joke #${j.id}?`);
+      if (!ok) return;
+
+      jokes.splice(idx, 1);
+      setStatus(`Deleted joke #${j.id}.`);
+      renderTable();
+    });
+
+    // ---- Actions ----
+    async function loadJokes() {
+      try {
+        setStatus("Loading...");
+        const res = await fetch(apiBase() + ADMIN_GET_PATH, {
+          method: "GET",
+          headers: headers()
+        });
+
+        if (!res.ok) {
+          const text = await safeText(res);
+          throw new Error(`Load failed (${res.status}). ${text}`);
+        }
+
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error("Worker did not return an array.");
+
+        jokes = data.map(sanitizeJoke);
+        loaded = true;
+
+        setStatus(`Loaded ${jokes.length} jokes.`);
+        renderTable();
+      } catch (err) {
+        loaded = false;
+        jokes = [];
+        renderTable();
+        setStatus(err.message || String(err));
+      }
     }
 
-    setStatus("Saved OK ✅", "ok");
-  }
+    async function saveJokes() {
+      try {
+        if (!loaded) throw new Error("Load jokes first.");
 
-  btnLoad.addEventListener("click", async () => {
-    try { await loadJokes(); }
-    catch (e) { setStatus(String(e?.message || e), "bad"); }
-  });
+        // Normalize before saving
+        jokes = jokes.map(sanitizeJoke);
 
-  btnFormat.addEventListener("click", formatJson);
+        setStatus("Saving...");
+        const res = await fetch(apiBase() + ADMIN_PUT_PATH, {
+          method: "PUT",
+          headers: headers(),
+          body: JSON.stringify(jokes, null, 2)
+        });
 
-  btnSave.addEventListener("click", async () => {
-    try { await saveJokes(); }
-    catch (e) { setStatus(String(e?.message || e), "bad"); }
-  });
+        if (!res.ok) {
+          const text = await safeText(res);
+          throw new Error(`Save failed (${res.status}). ${text}`);
+        }
 
-  btnClear.addEventListener("click", () => {
-    apiKeyEl.value = "";
-    setStatus("Cleared key.");
-  });
-</script>
+        setStatus("Saved successfully.");
+        renderTable();
+      } catch (err) {
+        setStatus(err.message || String(err));
+      }
+    }
+
+    async function addJoke(andSave) {
+      try {
+        if (!loaded) throw new Error("Load jokes first.");
+
+        const text = el("newText").value.trim();
+        const rating = el("newRating").value;
+        const category = el("newCategory").value.trim() || "misc";
+        const active = (el("newActive").value === "true");
+
+        if (!text) throw new Error("Please enter joke text.");
+
+        const j = sanitizeJoke({
+          id: nextId(),
+          text,
+          rating,
+          category,
+          active
+        });
+
+        jokes.push(j);
+        el("newText").value = "";
+        setStatus(`Added joke #${j.id}.`);
+        renderTable();
+
+        if (andSave) await saveJokes();
+      } catch (err) {
+        setStatus(err.message || String(err));
+      }
+    }
+
+    async function safeText(res) {
+      try { return (await res.text()).slice(0, 300); }
+      catch { return ""; }
+    }
+
+    // Initial render
+    renderTable();
+  </script>
 </body>
 </html>

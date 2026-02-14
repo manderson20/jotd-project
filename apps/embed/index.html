@@ -411,37 +411,40 @@
     setLoadedBadge();
   }
 
-  // ---- Events ----
-  el("btnLoad").addEventListener("click", loadJokes);
-  el("btnSave").addEventListener("click", saveJokes);
-  el("btnAdd").addEventListener("click", () => addJoke(false));
-  el("btnAddAndSave").addEventListener("click", () => addJoke(true));
-  el("btnClearKey").addEventListener("click", () => {
-    el("apiKey").value = "";
-    setStatus("Key cleared.");
-  });
+// ---- Events ----
+el("btnLoad").addEventListener("click", loadJokes);
+el("btnSave").addEventListener("click", saveJokes);
 
-  el("jokesTable").addEventListener("input", (e) => {
-    const t = e.target;
-    const idx = t.dataset.idx;
-    const field = t.dataset.field;
-    if (idx == null || field == null || !jokes[idx]) return;
+// Make "Add joke" ALWAYS save to GitHub
+el("btnAdd").addEventListener("click", () => addJoke(true));
 
-    if (field === "active") {
-      jokes[idx][field] = (t.value === "true");
-    } else {
-      jokes[idx][field] = t.value;
-    }
-  });
+// Keep Add & Save doing the same thing (optional, but fine to keep)
+el("btnAddAndSave").addEventListener("click", () => addJoke(true));
 
-  el("jokesTable").addEventListener("click", (e) => {
-    const idx = e.target.dataset.del;
-    if (idx == null || !jokes[idx]) return;
-    jokes.splice(idx, 1);
-    renderTable();
-  });
+el("btnClearKey").addEventListener("click", () => {
+  el("apiKey").value = "";
+  setStatus("Key cleared.");
+});
 
+el("jokesTable").addEventListener("input", (e) => {
+  const t = e.target;
+  const idx = t.dataset.idx;
+  const field = t.dataset.field;
+  if (idx == null || field == null || !jokes[idx]) return;
+
+  if (field === "active") {
+    jokes[idx][field] = (t.value === "true");
+  } else {
+    jokes[idx][field] = t.value;
+  }
+});
+
+el("jokesTable").addEventListener("click", (e) => {
+  const idx = e.target.dataset.del;
+  if (idx == null || !jokes[idx]) return;
+  jokes.splice(idx, 1);
   renderTable();
+});
 </script>
 </body>
 </html>

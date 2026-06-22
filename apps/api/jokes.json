@@ -21,6 +21,13 @@
     "active": true
   },
   {
+    "id": 4,
+    "text": "How do trees go on the Internet? They log on...",
+    "rating": "G",
+    "category": "dad",
+    "active": true
+  },
+  {
     "id": 1001,
     "text": "I tried to teach my router a bedtime routine. Now it only disconnects after a story.",
     "rating": "G",
